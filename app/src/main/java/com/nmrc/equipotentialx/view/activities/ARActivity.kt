@@ -1,13 +1,16 @@
 package com.nmrc.equipotentialx.view.activities
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentOnAttachListener
+import androidx.navigation.navArgs
 import com.google.android.filament.ColorGrading
 import com.google.ar.core.Config
 import com.google.ar.core.HitResult
@@ -24,23 +27,32 @@ import com.google.ar.sceneform.ux.BaseArFragment
 import com.google.ar.sceneform.ux.TransformableNode
 import com.nmrc.equipotentialx.R
 import com.nmrc.equipotentialx.databinding.ActivityArcoreBinding
+import com.nmrc.equipotentialx.model.ECharge
 import java.lang.ref.WeakReference
 
-class ARCoreActivity : AppCompatActivity(),
+class ARActivity : AppCompatActivity(),
     FragmentOnAttachListener,
     BaseArFragment.OnTapArPlaneListener,
     BaseArFragment.OnSessionConfigurationListener,
     ArFragment.OnViewCreatedListener {
 
     private lateinit var binding: ActivityArcoreBinding
-    private var arFragment: ArFragment? = null
-    private var model: Renderable? = null
-    private var viewRenderable: ViewRenderable? = null
+    private lateinit var arFragment: ArFragment
+    private lateinit var model: Renderable
+    private lateinit var viewRenderable: ViewRenderable
+    private val args by navArgs<ARActivityArgs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityArcoreBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        requestPermissions(arrayOf(Manifest.permission.CAMERA), 16)
+
+        if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
+            Toast.makeText(this, "Access to the camera was denied", Toast.LENGTH_LONG).show()
+            finish()
+        }
 
         supportFragmentManager.addFragmentOnAttachListener(this)
 
@@ -52,7 +64,32 @@ class ARCoreActivity : AppCompatActivity(),
             }
         }
 
-        loadModels()
+        loadModels(
+            loadCharges(recoverChargers())
+        )
+    }
+
+    private fun recoverChargers(): ArrayList<ECharge> {
+        val lastIndex = args.chargers.lastIndex
+        ArrayList<ECharge>().apply {
+            add(args.chargers[lastIndex-1])
+            add(args.chargers.last())
+        }.also {
+            return it
+        }
+    }
+
+    private fun loadCharges(arg: ArrayList<ECharge>): String {
+        val q1 = arg[0]
+        val q2 = arg[1]
+        var select = ""
+
+        if (q1.dx == 2 || q1.dx == -2 && q2.dx == 2 || q2.dx == -2) {
+            if (q1.value == -5 && q2.value == -5) {
+                select = "-5-2-5-2.glb"
+            }
+        }
+        return select
     }
 
     override fun onViewCreated(arFragment: ArFragment?, arSceneView: ArSceneView) {
@@ -69,36 +106,38 @@ class ARCoreActivity : AppCompatActivity(),
     }
 
     override fun onTapPlane(hitResult: HitResult, plane: Plane?, motionEvent: MotionEvent?) {
-        if (model == null || viewRenderable == null) {
-            Toast.makeText(this, "Loading...", Toast.LENGTH_SHORT).show()
-            return
+        val anchor = hitResult.createAnchor()
+        val anchorNode = AnchorNode(anchor).apply {
+            setParent(arFragment.arSceneView.scene)
         }
 
-        val anchor = hitResult.createAnchor()
-        val anchorNode = AnchorNode(anchor)
-        anchorNode.setParent(arFragment!!.arSceneView.scene)
-
-        val model = TransformableNode(arFragment!!.transformationSystem)
-        model.setParent(anchorNode)
-        model.setRenderable(this.model)
-            .animate(true).start()
-        model.localScale = Vector3(0.0001f,0.0001f, 0.0f)
-        model.select()
+        val model = TransformableNode(arFragment.transformationSystem).apply {
+            setParent(anchorNode)
+            setRenderable(model).animate(true).start()
+            localScale = Vector3(0.0001f,0.0001f, 0.0f)
+            select()
+        }
 
         val titleNode = Node()
-        titleNode.setParent(model)
-        titleNode.isEnabled = false
-        titleNode.localPosition = Vector3(0.0f, 1.0f, 0.0f)
-        titleNode.renderable = viewRenderable
-        titleNode.isEnabled = true
+        titleNode.apply {
+            setParent(model)
+            isEnabled = false
+            localPosition = Vector3(0.0f, 1.0f, 0.0f)
+            renderable = viewRenderable
+            isEnabled = true
+        }
     }
 
     override fun onAttachFragment(fragmentManager: FragmentManager, fragment: Fragment) {
         if (fragment.id == R.id.arFragment) {
             arFragment = fragment as ArFragment
-            arFragment!!.setOnTapArPlaneListener(this)
-            arFragment!!.setOnViewCreatedListener(this)
-            arFragment!!.setOnSessionConfigurationListener(this)
+            arFragment.let{ ARfragment ->
+                ARfragment.apply {
+                    setOnTapArPlaneListener(this@ARActivity)
+                    setOnViewCreatedListener(this@ARActivity)
+                    setOnSessionConfigurationListener(this@ARActivity)
+                }
+            }
         }
     }
 
@@ -111,33 +150,31 @@ class ARCoreActivity : AppCompatActivity(),
         config!!.updateMode = Config.UpdateMode.LATEST_CAMERA_IMAGE
     }
 
-    fun loadModels() {
+    fun loadModels(arg: String) {
         val weakActivity = WeakReference(this)
         ModelRenderable.builder()
-            .setSource(this, Uri.parse("pruebacerna.glb"))
+            .setSource(this, Uri.parse(arg))
             .setIsFilamentGltf(true)
             .setAsyncLoadEnabled(true)
             .build()
             .thenAccept { model: ModelRenderable? ->
                 val activity = weakActivity.get()
-                if (activity != null) {
-                    activity.model = model
-                }
+                if (activity != null)
+                    activity.model = model!!
             }
-            .exceptionally { throwable: Throwable? ->
+            .exceptionally {
                 Toast.makeText(this, "Unable to load model", Toast.LENGTH_LONG).show()
                 null
             }
         ViewRenderable.builder()
             .setView(this, R.layout.view_model_title)
             .build()
-            .thenAccept { viewRenderable: ViewRenderable? ->
+            .thenAccept { viewRenderable ->
                 val activity = weakActivity.get()
-                if (activity != null) {
+                if (activity != null)
                     activity.viewRenderable = viewRenderable
-                }
             }
-            .exceptionally { throwable: Throwable? ->
+            .exceptionally {
                 Toast.makeText(this, "Unable to load model", Toast.LENGTH_LONG).show()
                 null
             }

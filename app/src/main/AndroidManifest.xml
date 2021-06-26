@@ -17,7 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EquipotentialX">
-        <activity android:name=".view.activities.ARCoreActivity"></activity>
+        <activity android:name=".view.activities.ARActivity"></activity>
         <activity android:name=".view.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

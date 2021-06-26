@@ -15,6 +15,10 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
     private var _binding: FragmentInfoBinding? = null
     private val binding get() = _binding!!
 
+    companion object {
+        private const val REPOSITORY = "https://github.com/16george/EquipotentialX"
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentInfoBinding.bind(view)
@@ -25,7 +29,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
 
     private fun toSourceCode() {
         binding.btnCode.setOnClickListener {
-            Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/16george")).also {
+            Intent(Intent.ACTION_VIEW, Uri.parse(REPOSITORY)).also {
                 startActivity(it)
             }
         }

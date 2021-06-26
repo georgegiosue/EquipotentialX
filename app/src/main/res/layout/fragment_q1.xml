@@ -55,7 +55,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.061"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCharger" />
 
     <ImageView
         android:layout_width="70dp"
@@ -65,7 +65,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.364"
         app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCharger" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -78,7 +78,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <com.google.android.material.slider.Slider
-        android:id="@+id/slider2"
+        android:id="@+id/slider_charger"
         android:layout_width="312dp"
         android:layout_height="37dp"
         android:layout_marginStart="16dp"
@@ -92,7 +92,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/tvCharger"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
@@ -101,10 +101,10 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/slider2" />
+        app:layout_constraintTop_toBottomOf="@+id/slider_charger" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/tvDx"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -114,10 +114,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/slider3" />
+        app:layout_constraintTop_toBottomOf="@+id/slider_x_position" />
 
     <com.google.android.material.slider.Slider
-        android:id="@+id/slider3"
+        android:id="@+id/slider_x_position"
         android:layout_width="312dp"
         android:layout_height="37dp"
         android:layout_marginStart="16dp"

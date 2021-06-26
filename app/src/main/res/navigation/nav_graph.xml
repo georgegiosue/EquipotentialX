@@ -20,9 +20,13 @@
     </fragment>
     <activity
         android:id="@+id/ARCoreActivity"
-        android:name="com.nmrc.equipotentialx.view.activities.ARCoreActivity"
+        android:name="com.nmrc.equipotentialx.view.activities.ARActivity"
         android:label="activity_arcore"
-        tools:layout="@layout/activity_arcore" />
+        tools:layout="@layout/activity_arcore" >
+        <argument
+            android:name="chargers"
+            app:argType="com.nmrc.equipotentialx.model.ECharge[]" />
+    </activity>
     <fragment
         android:id="@+id/q1Fragment"
         android:name="com.nmrc.equipotentialx.view.fragments.Q1Fragment"
@@ -43,10 +47,6 @@
         android:label="fragment_q2"
         tools:layout="@layout/fragment_q2" >
         <action
-            android:id="@+id/action_q2Fragment_to_ARCoreActivity"
-            app:destination="@id/ARCoreActivity"
-            app:enterAnim="@anim/from_right" />
-        <action
             android:id="@+id/action_q2Fragment_to_electricFieldFragment"
             app:destination="@id/electricFieldFragment"
             app:enterAnim="@anim/from_right" />
@@ -57,13 +57,17 @@
     </fragment>
     <fragment
         android:id="@+id/electricFieldFragment"
-        android:name="com.nmrc.equipotentialx.view.fragments.ElectricFieldFragment"
+        android:name="com.nmrc.equipotentialx.view.fragments.PreviewResultFragment"
         android:label="fragment_electric_field"
-        tools:layout="@layout/fragment_electric_field" >
+        tools:layout="@layout/fragment_preview_result" >
         <action
             android:id="@+id/action_electricFieldFragment_to_q2Fragment"
             app:destination="@id/q2Fragment"
             app:enterAnim="@anim/to_left" />
+        <action
+            android:id="@+id/action_previewResultFragment_to_ARCoreActivity"
+            app:destination="@id/ARCoreActivity"
+            app:enterAnim="@anim/from_right" />
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
