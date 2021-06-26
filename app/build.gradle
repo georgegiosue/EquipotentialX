@@ -48,6 +48,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 
+
     // AR CORE
     implementation 'com.gorisse.thomas.sceneform:sceneform:1.19.3'
     implementation 'com.google.android.filament:filamat-android:1.9.25'

@@ -11,12 +11,67 @@
         android:label="fragment_data"
         tools:layout="@layout/fragment_data" >
         <action
-            android:id="@+id/action_dataFragment_to_ARCoreActivity"
-            app:destination="@id/ARCoreActivity" />
+            android:id="@+id/action_dataFragment_to_q1Fragment"
+            app:destination="@id/q1Fragment"
+            app:enterAnim="@anim/from_right" />
+        <action
+            android:id="@+id/action_dataFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
     </fragment>
     <activity
         android:id="@+id/ARCoreActivity"
         android:name="com.nmrc.equipotentialx.view.activities.ARCoreActivity"
         android:label="activity_arcore"
         tools:layout="@layout/activity_arcore" />
+    <fragment
+        android:id="@+id/q1Fragment"
+        android:name="com.nmrc.equipotentialx.view.fragments.Q1Fragment"
+        android:label="fragment_q1"
+        tools:layout="@layout/fragment_q1" >
+        <action
+            android:id="@+id/action_q1Fragment_to_q2Fragment"
+            app:destination="@id/q2Fragment"
+            app:enterAnim="@anim/from_right" />
+        <action
+            android:id="@+id/action_q1Fragment_to_dataFragment"
+            app:destination="@id/dataFragment"
+            app:enterAnim="@anim/to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/q2Fragment"
+        android:name="com.nmrc.equipotentialx.view.fragments.Q2Fragment"
+        android:label="fragment_q2"
+        tools:layout="@layout/fragment_q2" >
+        <action
+            android:id="@+id/action_q2Fragment_to_ARCoreActivity"
+            app:destination="@id/ARCoreActivity"
+            app:enterAnim="@anim/from_right" />
+        <action
+            android:id="@+id/action_q2Fragment_to_electricFieldFragment"
+            app:destination="@id/electricFieldFragment"
+            app:enterAnim="@anim/from_right" />
+        <action
+            android:id="@+id/action_q2Fragment_to_q1Fragment"
+            app:destination="@id/q1Fragment"
+            app:enterAnim="@anim/to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/electricFieldFragment"
+        android:name="com.nmrc.equipotentialx.view.fragments.ElectricFieldFragment"
+        android:label="fragment_electric_field"
+        tools:layout="@layout/fragment_electric_field" >
+        <action
+            android:id="@+id/action_electricFieldFragment_to_q2Fragment"
+            app:destination="@id/q2Fragment"
+            app:enterAnim="@anim/to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.nmrc.equipotentialx.view.fragments.InfoFragment"
+        android:label="fragment_info"
+        tools:layout="@layout/fragment_info" >
+        <action
+            android:id="@+id/action_infoFragment_to_dataFragment"
+            app:destination="@id/dataFragment" />
+    </fragment>
 </navigation>
