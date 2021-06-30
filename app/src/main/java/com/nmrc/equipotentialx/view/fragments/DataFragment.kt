@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.nmrc.equipotentialx.R
 import com.nmrc.equipotentialx.databinding.FragmentDataBinding
+import com.nmrc.equipotentialx.model.ECharge
 
 
 class DataFragment : Fragment(R.layout.fragment_data) {
@@ -19,6 +20,18 @@ class DataFragment : Fragment(R.layout.fragment_data) {
 
         toQ1()
         toInfo()
+        toLayersEQ()
+    }
+
+    private fun toLayersEQ() {
+        binding.cvLayersEQ.setOnClickListener {
+            DataFragmentDirections.actionDataFragmentToARCoreActivity(arrayOf(
+                ECharge(10,10),
+                ECharge(10, 10)
+            )).also { action ->
+                findNavController().navigate(action)
+            }
+        }
     }
 
     private fun toInfo() {

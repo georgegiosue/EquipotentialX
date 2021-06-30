@@ -15,4 +15,5 @@
     <string name="version_app">EquipotentialX 1.1.0</string>
     <string name="campo_electrico">Campo Electrico</string>
     <string name="realidad_aumentada">Realidad Aumentada</string>
+    <string name="superficies_equipotenciales_en_ar">Superficies Equipotenciales en AR</string>
 </resources>

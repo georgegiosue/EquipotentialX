@@ -84,11 +84,62 @@ class ARActivity : AppCompatActivity(),
         val q2 = arg[1]
         var select = ""
 
-        if (q1.dx == 2 || q1.dx == -2 && q2.dx == 2 || q2.dx == -2) {
-            if (q1.value == -5 && q2.value == -5) {
-                select = "-5-2-5-2.glb"
-            }
-        }
+        if (q1.value == 10 && q2.value == 10)
+            select = "layers_model.glb"
+
+        if (q1.value == 1 && q1.dx == -2 && q2.value == 1 && q2.dx == 2)
+            select = "1-212.glb"
+
+        if (q1.value == 1 && q1.dx == -2 && q2.value == 5 && q2.dx == 2)
+            select = "1-252.glb"
+
+        if (q1.value == 2 && q1.dx == -2 && q2.value == 2 && q2.dx == 2)
+            select = "2-222.glb"
+
+        if (q1.value == 2 && q1.dx == -2 && q2.value == 5 && q2.dx == 2)
+            select = "2-252.glb"
+
+        if (q1.value == 4 && q1.dx == -3 && q2.value == 4 && q2.dx == 3)
+            select = "4-343.glb"
+
+        if (q1.value == 5 && q1.dx == -2 && q2.value == 5 && q2.dx == 2)
+            select = "5-252.glb"
+
+        if (q1.value == 5 && q1.dx == -3 && q2.value == 5 && q2.dx == 3)
+            select = "5-353.glb"
+
+        if (q1.value == -1 && q1.dx == -2 && q2.value == -1 && q2.dx == 2)
+            select = "-1-2-12.glb"
+
+        if (q1.value == -1 && q1.dx == -3 && q2.value == -1 && q2.dx == 3)
+            select = "-1-3-13.glb"
+
+        if (q1.value == -1 && q1.dx == -2 && q2.value == 5 && q2.dx == 2)
+            select = "-1-252.glb"
+
+        if (q1.value == -2 && q1.dx == -2 && q2.value == -2 && q2.dx == 2)
+            select = "-2-2-22.glb"
+
+        if (q1.value == -2 && q1.dx == -3 && q2.value == -2 && q2.dx == 3)
+            select = "-2-3-23.glb"
+
+        if (q1.value == -2 && q1.dx == -2 && q2.value == 5 && q2.dx == 2)
+            select = "-2-252.glb"
+
+        if (q1.value == -5 && q1.dx == -2 && q2.value == -5 && q2.dx == -2)
+            select = "-5-2-5-2.glb"
+
+        if (q1.value == -5 && q1.dx == -2 && q2.value == -5 && q2.dx == 2)
+            select = "-5-2-52.glb"
+
+        if (q1.value == -5 && q1.dx == -3 && q2.value == -5 && q2.dx == 3)
+            select = "-5-3-53.glb"
+
+        if (q1.value == -5 && q1.dx == -5 && q2.value == -5 && q2.dx == -5)
+            select = "-5-5-5-5.glb"
+
+        if (q1.value == -5 && q1.dx == -2 && q2.value == 5 && q2.dx == 2)
+            select = "-5-252.glb"
         return select
     }
 
