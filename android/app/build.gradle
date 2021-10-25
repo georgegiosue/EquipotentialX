@@ -1,0 +1,91 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-parcelize'
+}
+
+android {
+    compileSdkVersion Android.compileSdkVersion
+    buildToolsVersion Android.buildToolsVersion
+
+    defaultConfig {
+        applicationId Android.applicationId
+        minSdkVersion Android.minSdkVersion
+        targetSdkVersion Android.targetSdkVersion
+        versionCode Android.versionCode
+        versionName Android.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+        useIR = true
+    }
+    buildFeatures {
+        viewBinding true
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion Compose.version
+        kotlinCompilerVersion Kotlin.version
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+
+    implementation(project(Modules.core))
+    implementation(project(Modules.components))
+
+    implementation(Androidx.core)
+    implementation(Androidx.app_compat)
+    implementation(Androidx.lifecycle_viewmodel_compose)
+    implementation(Androidx.lifecycle_runtime)
+    implementation(Androidx.legacy_support)
+    implementation(Androidx.constraint_layout)
+
+    implementation(AR.sceneform)
+
+    implementation(Google.filament_android)
+    implementation(Google.material)
+
+    implementation(Compose.activity_compose)
+    implementation(Compose.material)
+    implementation(Compose.animation)
+    implementation(Compose.ui)
+    implementation(Compose.tooling)
+    implementation(Compose.icons)
+    implementation(Compose.navigation)
+
+    implementation(Hilt.android)
+    kapt(Hilt.compiler)
+
+    implementation(Kotlinx.coroutines_android)
+    implementation(Kotlinx.coroutines_core)
+
+    testImplementation(JUnit.junit)
+    androidTestImplementation(Compose.uiTestJUnit4)
+    androidTestImplementation(Androidx.junit)
+    androidTestImplementation(Androidx.espresso)
+}

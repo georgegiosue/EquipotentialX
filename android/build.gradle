@@ -1,0 +1,15 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath(Build.androidBuildTools)
+        classpath(Build.kotlinGradlePlugin)
+        classpath(Build.hiltGradlePlugin)
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
