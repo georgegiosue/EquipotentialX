@@ -19,7 +19,7 @@ EquipotentialX is an Android application developed with Kotlin, ARCore, and Ktor
 
 <div style="display: flex; justify-content: start; width: 100%;">
   <img src="./.github/images/image1.png" style="width: 40%; height: auto;" />
-  <img src="./.github/images/image2.png" style="width: 40%; height: 27rem;" />
+  <img src="./.github/images/image2.png" style="width: 40%; height: auto;" />
 </div>
 
 ## Installation 💻
