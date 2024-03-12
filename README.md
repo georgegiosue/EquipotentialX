@@ -18,8 +18,8 @@
 EquipotentialX is an Android application developed with Kotlin, ARCore, and Ktor. It allows users to visualize the electric field and equipotential curves of two electric charges in Augmented Reality (AR). This application is a great tool for understanding and visualizing complex concepts in physics.
 
 <div style="display: flex; justify-content: start; width: 100%;">
-  <img src="./.github/images/image1.png" style="width: 50%;" />
-  <img src="./.github/images/image2.png" style="width: 50%;" />
+  <img src="./.github/images/image1.png" style="width: 40%; height: auto;" />
+  <img src="./.github/images/image2.png" style="width: 40%; height: 27rem;" />
 </div>
 
 ## Installation 💻
